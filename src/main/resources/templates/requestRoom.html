@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Request room</title>
+    <script th:src="@{/scripts.js}"></script>
+    <link rel="stylesheet" th:href="@{/basic-style.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/request-room-style.css}" type="text/css"/>
+</head>
+<header th:replace="userHeader"></header>
+<body>
+<form th:action="@{/request/create}" method="post" id="request-room-content">
+    <h1 id="choose-a-room">
+        Choose a room
+    </h1>
+    <div class="input-row">
+        <div id="start-date" class="label-and-input-pair">
+            <label for="start-date">
+                Start date
+            </label>
+            <input type="date" name="startDate" id="startDate" onchange=updateEndDate() required>
+        </div>
+        <div id="end-date" class="label-and-input-pair">
+            <label for="end-date">
+                End date
+            </label>
+            <input type="date" name="endDate" id="endDate">
+        </div>
+    </div>
+    <div class="input-row">
+        <div id="room-capacity" class="label-and-input-pair">
+            <label for="room-capacity">
+                Room capacity
+            </label>
+            <select name="roomCapacity">
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+        </div>
+        <div id="room-class" class="label-and-input-pair">
+            <label for="room-class">
+                Room class
+            </label>
+            <select name="roomClass">
+                <option value="standart" selected> standart</option>
+                <option value="deluxe">deluxe</option>
+                <option value="premium">premium</option>
+            </select>
+        </div>
+    </div>
+    <input type="submit" id="apply" value="apply">
+</form>
+<script>
+    initialDatesBinding();
+</script>
+</body>
+</html>

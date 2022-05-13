@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+header {
+    display: flex;
+    flex-direction: row;
+    height: 15%;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+#hotel-logo {
+    width: 64px;
+    height: 62px;
+}
+
+#logout-btn {
+    background: none !important;
+    border: none;
+    padding: 0 !important;
+    color: #069;
+    cursor: pointer;
+    font-family: Gideon Roman;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 29px;
+    color: rgba(115, 92, 81, 1);
+    text-decoration: none;
+}
+
+#logout-btn :hover {
+    text-decoration: underline;
+}

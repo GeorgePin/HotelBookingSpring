@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+body {
+	background-color: rgba(253, 91, 91, 0.35);
+	margin: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	height: 100%;
+	width: 100%;
+}
+
+#sad-face-img {
+	width: 300px;
+	height: 300px;
+}
+
+#go-back-btn {
+	width: fit-content;
+}
+
+#heading {
+	margin-top: 2%;
+	margin-bottom: 0;
+}

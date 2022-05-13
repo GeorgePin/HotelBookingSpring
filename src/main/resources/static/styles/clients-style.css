@@ -1,0 +1,54 @@
+@charset "UTF-8";
+
+body {
+	background: rgba(253, 91, 91, 0.35);
+	margin: 0px;
+}
+
+#page-content {
+	display: flex;
+	flex-direction: column;
+	height: 85%;
+	justify-content: center;
+	align-items: center;
+	row-gap: 3%;
+}
+
+#clients-table {
+	width: 50%;
+	table-layout: fixed;
+}
+
+#clients-table tr {
+	line-height: 40px;
+}
+
+.number-column {
+	width: 5%;
+}
+
+.name-column {
+	width: 20%;
+}
+
+.surname-column {
+	width: 20%;
+}
+
+.login-column {
+	width: 20%;
+}
+
+.is-blocked-column {
+	width: 20%;
+}
+
+.set-user-state-column {
+	width: 15%;
+}
+
+@media only screen and (max-width: 970px) {
+	#clients-table {
+		width: 100%;
+	}
+}

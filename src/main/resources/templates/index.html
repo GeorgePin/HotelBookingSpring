@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Main page</title>
+    <link rel="stylesheet" th:href="@{/basic-style.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/index-style.css}" type="text/css"/>
+</head>
+<body class="login-page-body">
+<form th:action="@{/auth/login}" method="post" id="page-container">
+    <h1 id="welcome-back-msg">
+        Welcome back!
+    </h1>
+    <input type="text" id="login-input" name="login"
+           placeholder="login" maxlength="10"
+           pattern="[\d|\w]{3,10}" required>
+    <input type="password" id="password-input" name="password" maxlength="10"
+           pattern="[\d|\w]{3,10}"
+           placeholder="password" required>
+    <a href="controller?command=showPage&page=registrationPage.jsp" id="registration-msg">
+        register
+    </a>
+    <input type="submit" id="log-in-btn"
+           value="log in"/>
+</form>
+</body>
+</html>

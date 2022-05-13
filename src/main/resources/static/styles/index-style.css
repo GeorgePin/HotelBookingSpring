@@ -1,0 +1,61 @@
+@charset "UTF-8";
+
+.main-page-body {
+	background: linear-gradient(121.99deg, #FED5CD 4.95%, #E0CDFE 70.55%);
+}
+
+.login-page-body {
+	background: #E0CDFE;
+}
+
+#page-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 90%;
+	text-align: center;
+	row-gap: 2%;
+	margin: 0;
+}
+
+#main-heading {
+	width: 400px;
+}
+
+#main-page-content {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	height: 80%;
+}
+
+#background-circle {
+	background: radial-gradient(109.53% 113.91% at -9.56% 0%, rgba(115, 120, 224, 0.22) 0%,
+		rgba(74, 233, 255, 0.22) 100%);
+	border-radius: 50%;
+	width: 560.16px;
+	height: 549.29px;
+}
+
+div[class="dropdown"] {
+	left: 70%;
+	top: 5%;
+}
+
+@media only screen and (max-width: 970px) {
+	#background-circle {
+		display: none;
+	}
+	#text-and-btn {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+	}
+	div[class="dropdown"] {
+		left: 47%;
+	}
+}

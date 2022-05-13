@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+body {
+	background: rgba(223, 95, 255, 0.33);
+}
+
+#page-content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	height: 85%;
+	row-gap: 4%;
+}
+
+table {
+	table-layout: fixed;
+}
+
+table tr {
+	line-height: 40px;
+}
+
+#request-table {
+	width: 60%;
+	margin-bottom: 4%;
+}
+
+#rooms-table {
+	width: 60%;
+}
+
+@media only screen and (max-width: 1300px) {
+	#request-table, #rooms-table {
+		width: 100%;
+	}
+}

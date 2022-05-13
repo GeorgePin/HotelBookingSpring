@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+body {
+	background: linear-gradient(121.99deg, #FED5CD 4.95%, #E0CDFE 70.55%);
+}
+
+.input-row {
+	display: flex;
+	flex-direction: row;
+	column-gap: 3%;
+}
+
+.label-and-input-pair {
+	display: flex;
+	flex-direction: column;
+}
+
+#request-room-content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 85%;
+	row-gap: 3%;
+	margin: 0;
+}
+
+#apply {
+	margin-top: 2%;
+}
+
+@media only screen and (max-width: 970px) {
+	.input-row {
+		display: flex;
+		flex-direction: column;
+		row-gap: 3%;
+	}
+}

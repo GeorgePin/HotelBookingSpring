@@ -1,0 +1,145 @@
+@charset "UTF-8";
+
+
+html, body {
+    min-height: 100%;
+}
+
+body {
+    height: 100vh;
+    margin: 0;
+}
+
+input[type="submit"], input[type="button"], button {
+    background: linear-gradient(101deg, rgba(250, 29, 108, 0.1755) -40.7%, rgba(0, 87, 255, 0.3081) 139.66%);
+    border-radius: 107px;
+    height: 76px;
+    border: none;
+    font: inherit;
+    cursor: pointer;
+    padding-left: 5%;
+    padding-right: 5%;
+    width: fit-content;
+}
+
+input[value], button {
+    font-family: 'B612', sans-serif;
+    font-style: normal;
+    font-size: 36px;
+    font-weight: bold;
+    color: #4F3427;
+}
+
+h1 {
+    font-family: 'B612', sans-serif;
+    font-size: 36px;
+    line-height: 44px;
+    color: #4F3427;
+    margin: 0;
+}
+
+::placeholder {
+    color: rgba(0, 0, 0, 0.17);
+}
+
+input, select {
+    border: 10px #fff;
+    border-radius: 15px;
+    height: 50px;
+    width: 300px;
+    font-family: 'B612', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 29px;
+}
+
+a {
+    font-family: Gideon Roman;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 29px;
+    color: rgba(115, 92, 81, 1);
+    text-decoration: none;
+}
+
+a[class="in-column-link"] {
+    font-family: Gideon Roman;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 29px;
+    color: rgba(115, 92, 81, 1);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+p:not([class="table-text"], [class="table-heading-text"], [id="error-msg-text"]) {
+    width: 400px;
+    font-weight: normal;
+    font-size: 24px;
+}
+
+label {
+    font-weight: normal;
+    font-size: 24px;
+}
+
+p[class="table-heading-text"] {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+p[class="table-text"] {
+    font-weight: normal;
+    font-size: 16px;
+}
+
+p[id="error-msg-text"] {
+    font-size: 24px;
+}
+
+p, label {
+    font-family: Gideon Roman;
+    font-style: normal;
+    letter-spacing: 0.06em;
+    color: #735C51;
+}
+
+.error-msg {
+    font-family: Gideon Roman;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 30px;
+    color: #ff0632;
+    letter-spacing: 0.02em;
+}
+
+table:not(.page-navigation) {
+    border-collapse: separate;
+    border-radius: 6px;
+    border: solid black 1px;
+}
+
+table:not(.page-navigation) td, th {
+    border: 1px solid;
+    text-align: center;
+}
+
+table:not(.page-navigation) tr:nth-child(odd) {
+    background-color: #fbd2ed;
+}
+
+table:not(.page-navigation) tr:nth-child(even), th {
+    background-color: #eed8fc;
+}
+
+.pending-image, .accept-image {
+    width: 20px;
+    height: 20px;
+}

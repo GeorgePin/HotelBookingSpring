@@ -1,0 +1,67 @@
+@charset "UTF-8";
+
+body {
+	background: rgba(223, 95, 255, 0.33);
+	margin: 0px;
+}
+
+#page-content {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	height: 85%;
+	row-gap: 4%;
+}
+
+.page-navigation h2 {
+	margin: 0;
+}
+
+#dash>h1 {
+	margin: 0px;
+	line-height: 10px;
+}
+
+#requests-table {
+	width: 60%;
+	table-layout: fixed;
+}
+
+#requests-table tr {
+	line-height: 40px;
+}
+
+.number-column {
+	width: 5%;
+}
+
+.start-date-column {
+	width: 20%;
+}
+
+.end-date-column {
+	width: 20%;
+}
+
+.room-capacity-column {
+	width: 10%;
+}
+
+.room-class-column {
+	width: 15%;
+}
+
+.is-approved-column {
+	width: 10%;
+}
+
+.room-price-column {
+	width: 20%;
+}
+
+@media only screen and (max-width: 970px) {
+	#requests-table {
+		width: 100%;
+	}
+}
