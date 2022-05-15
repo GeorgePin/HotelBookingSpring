@@ -2,36 +2,25 @@ package com.epam.hotelbookingspring.service;
 
 import com.epam.hotelbookingspring.dao.UserRepository;
 import com.epam.hotelbookingspring.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Optional;
+import java.util.Set;
 
 @Service
-public class UserServiceImpl {
+@RequiredArgsConstructor
+public class UserServiceImpl implements UserDetailsService {
     private final UserRepository userRepository;
 
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    @Override
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+        User user = userRepository.findByLogin(login).orElseThrow(() ->
+                new UsernameNotFoundException("User doesn't exists"));
+        Set<SimpleGrantedAuthority> authorities = user.getRole().getAuthorities();
+        return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), authorities);
     }
-
-
-    public Optional<User> loadUserByUsername(String login) throws NoSuchAlgorithmException {
-        return userRepository.findByLogin(login);
-    }
-
-//    public static String getMD5(String data) throws NoSuchAlgorithmException {
-//        try {
-//            MessageDigest md5 = MessageDigest.getInstance("MD5");
-//            md5.update(StandardCharsets.UTF_8.encode(data));
-//            return String.format("%032x", new BigInteger(1, md5.digest()));
-//        } catch (NoSuchAlgorithmException exception) {
-//            throw new NoSuchAlgorithmException("Algorithm wasn't found");
-//        }
-//    }
 }
