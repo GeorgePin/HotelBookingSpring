@@ -2,7 +2,8 @@ package com.epam.hotelbookingspring.model.security;
 
 public enum Permission {
     REQUEST_CREATE("request:create"),
-    DEVELOPERS_WRITE("developers:write");
+    REQUESTS_READ("requests:read"),
+    REQUESTS_READ_ALL("requests:readAll");
 
     private final String permission;
 

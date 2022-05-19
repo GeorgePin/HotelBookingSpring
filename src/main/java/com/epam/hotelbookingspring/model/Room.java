@@ -12,4 +12,6 @@ public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(name = "room_price_id")
+    private Long roomPriceId;
 }

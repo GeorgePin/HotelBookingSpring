@@ -1,17 +1,17 @@
-package com.epam.hotelbookingspring.model;
-
+package com.epam.hotelbookingspring.dao.dto;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.math.BigDecimal;
 import java.sql.Date;
 
 @Entity
-@Table(name = "reservation")
 @Data
-public class Request {
+public class RequestsDto {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "start_date")
     private Date startDate;
@@ -23,8 +23,6 @@ public class Request {
     private String roomClass;
     @Column(name = "is_approved")
     private boolean isApproved;
-    @Column(name = "user_id")
-    private Long userId;
-    @Column(name = "room_id")
-    private Long roomId;
+    @Column(name = "price")
+    private BigDecimal price;
 }

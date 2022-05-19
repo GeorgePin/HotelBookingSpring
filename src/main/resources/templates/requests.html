@@ -1,10 +1,149 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/security/tags" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Requests</title>
+    <script th:src="@{/scripts.js}"></script>
+    <link rel="stylesheet" th:href="@{/basic-style.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/requests-style.css}" type="text/css"/>
 </head>
 <body>
-<h1>admin page</h1>
+<sec:authorize access="hasRole('CLIENT')">
+    <div th:replace="userHeader"></div>
+    <div id="page-content">
+        <table id="requests-table">
+            <thead>
+            <tr>
+                <th class="number-column"><p class="table-heading-text">#</th>
+                <th class="start-date-column">
+                    <p class="table-heading-text">
+                        start date
+                    </p>
+                </th>
+                <th class="end-date-column">
+                    <p class="table-heading-text">
+                        end date
+                    </p>
+                </th>
+                <th class="room-capacity-column">
+                    <p class="table-heading-text">
+                        room capacity
+                    </p>
+                </th>
+                <th class="room-class-column">
+                    <p class="table-heading-text">
+                        room class
+                    </p>
+                </th>
+                <th class="is-approved-column">
+                    <p class="table-heading-text">
+                        is approved
+                    </p>
+                </th>
+                <th class="room-price-column">
+                    <p class="table-heading-text">
+                        room price
+                    </p>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="requestsDto,iter: ${requests}">
+                <td>
+                    <p class="table-text" th:text="${iter.count}">
+                    </p>
+                </td>
+                <td>
+                    <p class="table-text" th:text="${requestsDto.startDate}">
+                    </p>
+                </td>
+                <td th:switch="${requestsDto.endDate==null}? ${true} : ${false}">
+                    <h1 class="dash" th:case="${true}">-</h1>
+                    <p class="table-text" th:case="${false}" th:text="${requestsDto.endDate}"></p>
+                </td>
+                <td><p class="table-text" th:text="${requestsDto.roomCapacity}"></p></td>
+                <td><p class="table-text" th:text="${requestsDto.roomClass}">
+                </p></td>
+
+                <td th:switch="${requestsDto.isApproved}? ${true} : ${false}"><img th:src="@{/accept.png}"
+                                                                                   alt="accept image"
+                                                                                   class="accept-image"
+                                                                                   th:case="${true}"><img
+                        th:src="@{/pending.png}" th:case="${false}" alt="pending image" class="pending-image"></td>
+                <td th:switch="${requestsDto.isApproved}? ${true} : ${false}"><p class="table-text" th:case="${true}"
+                                                                                 th:text="${requestsDto.price}">
+                </p>
+                    <h1 class="dash" th:case="${false}">-</h1>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</sec:authorize>
+<sec:authorize access="hasRole('ADMIN')">
+    <div th:replace="adminHeader"></div>
+    <div id="page-content">
+        <table id="requests-table">
+            <thead>
+            <tr>
+                <th><p class="table-heading-text">#</p></th>
+                <th>
+                    <p class="table-heading-text">
+                        start date
+                    </p>
+                </th>
+                <th>
+                    <p class="table-heading-text">
+                        end date
+                    </p>
+                </th>
+                <th>
+                    <p class="table-heading-text">
+                        room capacity
+                    </p>
+                </th>
+                <th>
+                    <p class="table-heading-text">
+                        room class
+                    </p>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="request" items="${requestsList}" varStatus="counter">
+                <tr>
+                    <td><a class="in-column-link"
+                           href="controller?command=requestHandlingPage&requestId=${request.id}&page=1">
+                        <c:out
+                                value="${counter.count}"/>
+                    </a></td>
+                    <td>
+                        <p class="table-text">
+                            <fmt:formatDate pattern="${DatePattern}" value="${request.startDate}"/>
+                        </p>
+                    </td>
+                    <c:choose>
+                        <c:when test="${not empty request.endDate}">
+                            <td>
+                                <p class="table-text">
+                                    <fmt:formatDate pattern="${DatePattern}" value="${request.endDate}"/>
+                                </p>
+                            </td>
+                        </c:when>
+                        <c:otherwise>
+                            <td id="dash"><h1>-</h1></td>
+                        </c:otherwise>
+                    </c:choose>
+                    <td><p class="table-text">${request.roomCapacity}</p></td>
+                    <td>
+                        <p class="table-text">
+                            <fmt:message key="${request.roomClass}"/>
+                        </p>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+</sec:authorize>
 </body>
 </html>

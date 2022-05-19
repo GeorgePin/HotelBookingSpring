@@ -2,8 +2,9 @@ package com.epam.hotelbookingspring.controller;
 
 import com.epam.hotelbookingspring.model.Request;
 import com.epam.hotelbookingspring.service.RequestServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,16 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/request")
+@RequiredArgsConstructor
 public class RequestController {
-
     private final RequestServiceImpl requestService;
 
-    @Autowired
-    public RequestController(RequestServiceImpl requestService) {
-        this.requestService = requestService;
-    }
-
     @GetMapping("/create")
+    @PreAuthorize("hasAuthority('request:create')")
     public String getRequestRoomPage() {
         return "requestRoom";
     }
@@ -29,7 +26,8 @@ public class RequestController {
     @PostMapping("/create")
     @PreAuthorize("hasAuthority('request:create')")
     public String createRequest(@ModelAttribute("request") Request request) {
-        Request savedRequest = requestService.createRequest(request);
-        return "redirect:/client/index";
+        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Request savedRequest = requestService.createRequest(request, username);
+        return "redirect:/index";
     }
 }

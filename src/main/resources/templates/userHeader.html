@@ -5,13 +5,13 @@
     <link rel="stylesheet" th:href="@{/header-style.css}" type="text/css"/>
 </head>
 <header th:fragment="user-header">
-    <a th:href="@{/client/index}"> <img
+    <a th:href="@{/index}"> <img
             th:src="@{/hotel_logo.png}" alt="hotel logo" id="hotel-logo"></a>
     <div class="navigation-bar">
-        <a th:href="@{/requests}">request room
-        </a> | <a href="controller?command=requestsPage&page=1">requests
+        <a th:href="@{/request/create}">request room
+        </a> | <a th:href="@{/requests/my}">requests
     </a> |
-        <form th:action="@{/auth/logout}" method="POST" name="logoutForm"
+        <form th:action="@{/logout}" method="POST" name="logoutForm"
               id="logout">
             <input id="logout-btn" type="submit" value="logout"/>
         </form>
