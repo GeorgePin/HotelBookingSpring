@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+    <title>Rooms</title>
+    <link rel="stylesheet" th:href="@{/basic-style.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/rooms-style.css}" type="text/css"/>
+    <script th:src="@{/scripts.js}"></script>
+</head>
+<body>
+<div th:replace="adminHeader"></div>
+<div id="page-content">
+    <table id="rooms-table">
+        <thead>
+        <tr>
+            <th id="counter-row" class="number-column"><p class="table-heading-text">#</p></th>
+            <th class="room-number-column"><p class="table-heading-text">
+                room number
+            </p></th>
+            <th class="room-capacity-column"><p class="table-heading-text">
+                room capacity
+            </p></th>
+            <th class="room-class-column"><p class="table-heading-text">
+                room class
+            </p></th>
+            <th class="room-price-column"><p class="table-heading-text">
+                room price
+            </p></th>
+            <th class="room-price-date-column"><p class="table-heading-text">
+                valid from
+            </p></th>
+            <th class="is-blocked-column"><p class="table-heading-text">
+                is blocked
+            </p></th>
+            <th class="set-room-state-column"><p class="table-heading-text">
+                block/unblock
+            </p></th>
+            <th class="edit-room-column"><p class="table-heading-text">
+                edit room
+            </p></th>
+            <th class="delete-room-column"><p class="table-heading-text">
+                delete room
+            </p></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="room,iter: ${rooms}">
+            <td id="room-number-data">
+                <p class="table-text" th:text="${iter.count}">
+            </td>
+            <td><p class="table-text" th:text="${room.number}"></p></td>
+            <td id="room-capacity-data"><p class="table-text" th:text="${room.capacity}"></p></td>
+            <td>
+                <p class="table-text" th:text="${room.roomClass}">
+                </p>
+            </td>
+            <td><p class="table-text">${room.roomPrice.price}</p></td>
+            <td id="price-date-data">
+                <p class="table-text">
+                    <fmt:formatDate pattern="${DatePattern}" value="${room.roomPrice.validFrom}"/>
+                </p>
+            </td>
+            <c:choose>
+                <c:when test="${room.isBlocked}">
+                    <td><img src="static/images/accept.png" alt="accpect image" class="accept-image"></td>
+                    <td><a class="in-column-link"
+                           href="controller?command=setRoomState&roomId=${room.id}&state=0">
+                        <fmt:message
+                                key="unban"/>
+                    </a></td>
+                </c:when>
+                <c:otherwise>
+                    <td><img src="static/images/pending.png" alt="pending room" class="pending-image"></td>
+                    <td><a class="in-column-link"
+                           href="controller?command=setRoomState&roomId=${room.id}&state=1"
+                           onclick="return ConfirmDelete()">
+                        <fmt:message key="ban"/>
+                    </a></td>
+                </c:otherwise>
+            </c:choose>
+            <td><a class="in-column-link" href="controller?command=editRoomPage&roomId=${room.id}">
+                <fmt:message key="edit-room"/>
+            </a></td>
+            <td><a class="in-column-link" href="controller?command=deleteRoom&roomId=${room.id}"
+                   onclick="return ConfirmDelete()">
+                <fmt:message key="delete-room"/>
+            </a></td>
+        </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+    <table class="page-navigation">
+        <tr>
+            <c:forEach begin="1" end="${numberOfPages}" var="i">
+                <td><a href="controller?command=roomsPage&page=${i}">${i}</a></td>
+            </c:forEach>
+        </tr>
+    </table>
+    <button id="create-room-btn" onclick="location.href='controller?command=createRoomPage'"
+            type="button">
+        <fmt:message key="create-room-btn"/>
+    </button>
+</div>
+</body>
+</html>
