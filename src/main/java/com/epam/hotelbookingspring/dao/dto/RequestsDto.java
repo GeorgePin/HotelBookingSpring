@@ -1,15 +1,21 @@
 package com.epam.hotelbookingspring.dao.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 
-@Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
 public class RequestsDto {
     @Id
     private Long id;
@@ -25,4 +31,6 @@ public class RequestsDto {
     private boolean isApproved;
     @Column(name = "price")
     private BigDecimal price;
+
+
 }

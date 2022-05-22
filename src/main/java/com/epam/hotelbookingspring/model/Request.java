@@ -2,20 +2,27 @@ package com.epam.hotelbookingspring.model;
 
 
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "reservation")
 @Data
-public class Request {
+@RequiredArgsConstructor
+public class Request implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "start_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date startDate;
     @Column(name = "end_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
     @Column(name = "room_capacity")
     private Integer roomCapacity;

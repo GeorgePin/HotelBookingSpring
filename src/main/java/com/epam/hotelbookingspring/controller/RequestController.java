@@ -26,6 +26,7 @@ public class RequestController {
     @PostMapping("/create")
     @PreAuthorize("hasAuthority('request:create')")
     public String createRequest(@ModelAttribute("request") Request request) {
+        System.out.println("here");
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Request savedRequest = requestService.createRequest(request, username);
         return "redirect:/index";
