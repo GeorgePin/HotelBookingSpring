@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/security/tags" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.sprinfgramework.org/schema/security" lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Requests</title>
@@ -8,7 +8,7 @@
     <link rel="stylesheet" th:href="@{/requests-style.css}" type="text/css"/>
 </head>
 <body>
-<sec:authorize access="hasRole('CLIENT')">
+<div sec:authorize="hasRole('ROLE_CLIENT')">
     <div th:replace="userHeader"></div>
     <div id="page-content">
         <table id="requests-table">
@@ -79,72 +79,65 @@
             </tr>
             </tbody>
         </table>
+        <table class="page-navigation">
+            <tr>
+                <td th:each="i: ${#numbers.sequence(1, requests.getTotalPages)}"><h2>
+                    <a th:href="@{/requests/my/{pageNumber}(pageNumber=${i})}" th:text="${i}">
+                    </a>
+                </h2></td>
+            </tr>
+        </table>
     </div>
-</sec:authorize>
-<!--<sec:authorize access="hasRole('ADMIN')">-->
-<!--    <div th:replace="adminHeader"></div>-->
-<!--    <div id="page-content">-->
-<!--        <table id="requests-table">-->
-<!--            <thead>-->
-<!--            <tr>-->
-<!--                <th><p class="table-heading-text">#</p></th>-->
-<!--                <th>-->
-<!--                    <p class="table-heading-text">-->
-<!--                        start date-->
-<!--                    </p>-->
-<!--                </th>-->
-<!--                <th>-->
-<!--                    <p class="table-heading-text">-->
-<!--                        end date-->
-<!--                    </p>-->
-<!--                </th>-->
-<!--                <th>-->
-<!--                    <p class="table-heading-text">-->
-<!--                        room capacity-->
-<!--                    </p>-->
-<!--                </th>-->
-<!--                <th>-->
-<!--                    <p class="table-heading-text">-->
-<!--                        room class-->
-<!--                    </p>-->
-<!--                </th>-->
-<!--            </tr>-->
-<!--            </thead>-->
-<!--            <tbody>-->
-<!--            <c:forEach var="request" items="${requestsList}" varStatus="counter">-->
-<!--                <tr>-->
-<!--                    <td><a class="in-column-link"-->
-<!--                           href="controller?command=requestHandlingPage&requestId=${request.id}&page=1">-->
-<!--                        <c:out-->
-<!--                                value="${counter.count}"/>-->
-<!--                    </a></td>-->
-<!--                    <td>-->
-<!--                        <p class="table-text">-->
-<!--                            <fmt:formatDate pattern="${DatePattern}" value="${request.startDate}"/>-->
-<!--                        </p>-->
-<!--                    </td>-->
-<!--                    <c:choose>-->
-<!--                        <c:when test="${not empty request.endDate}">-->
-<!--                            <td>-->
-<!--                                <p class="table-text">-->
-<!--                                    <fmt:formatDate pattern="${DatePattern}" value="${request.endDate}"/>-->
-<!--                                </p>-->
-<!--                            </td>-->
-<!--                        </c:when>-->
-<!--                        <c:otherwise>-->
-<!--                            <td id="dash"><h1>-</h1></td>-->
-<!--                        </c:otherwise>-->
-<!--                    </c:choose>-->
-<!--                    <td><p class="table-text">${request.roomCapacity}</p></td>-->
-<!--                    <td>-->
-<!--                        <p class="table-text">-->
-<!--                            <fmt:message key="${request.roomClass}"/>-->
-<!--                        </p>-->
-<!--                    </td>-->
-<!--                </tr>-->
-<!--            </c:forEach>-->
-<!--            </tbody>-->
-<!--        </table>-->
-<!--</sec:authorize>-->
+</div>
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+    <div th:replace="adminHeader"></div>
+    <div id="page-content">
+        <table id="requests-table">
+            <thead>
+            <tr>
+                <th><p class="table-heading-text">#</p></th>
+                <th>
+                    <p class="table-heading-text">
+                        start date
+                    </p>
+                </th>
+                <th>
+                    <p class="table-heading-text">
+                        end date
+                    </p>
+                </th>
+                <th>
+                    <p class="table-heading-text">
+                        room capacity
+                    </p>
+                </th>
+                <th>
+                    <p class="table-heading-text">
+                        room class
+                    </p>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="requestsDto,iter: ${requests}">
+                <td><a class="in-column-link"
+                       th:href="@{/request/handle/{id}(id=${requestsDto.id})}" th:text="${iter.count}">
+                </a></td>
+                <td>
+                    <p class="table-text" th:text="${requestsDto.startDate.toString().substring(0,10)}">
+                    </p>
+                </td>
+                <td th:switch="${requestsDto.endDate==null ? true : false}">
+                    <h1 class="dash" th:case="${true}">-</h1>
+                    <p class="table-text" th:case="${false}"
+                       th:text="${requestsDto.endDate.toString().substring(0,10)}"></p>
+                </td>
+                <td><p class="table-text" th:text="${requestsDto.roomCapacity}"></p></td>
+                <td><p class="table-text" th:text="${requestsDto.roomClass}"></p></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 </body>
 </html>

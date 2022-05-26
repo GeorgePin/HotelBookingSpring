@@ -21,9 +21,9 @@ import java.util.List;
 public class RequestsController {
     private final RequestServiceImpl requestService;
 
-    @GetMapping("/all")
+    @GetMapping("/all/{pageNumber}")
     @PreAuthorize("hasAuthority('requests:readAll')")
-    public ModelAndView getRequestsPageForAdmin() {
+    public ModelAndView getRequestsPageForAdmin(@PathVariable String pageNumber) {
         ModelAndView modelAndView = new ModelAndView("requests");
         List<Request> requests = requestService.getRequestsForAdmin();
         modelAndView.addObject("requests", requests);

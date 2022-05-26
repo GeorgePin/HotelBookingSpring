@@ -12,7 +12,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -41,7 +40,8 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     }
 
     @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws AuthenticationException, IOException {
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+                                            FilterChain chain, Authentication authentication) throws AuthenticationException, IOException {
         User user = (User) authentication.getPrincipal();
         List<String> permissions = user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
         Algorithm algorithm = Algorithm.HMAC256(secretKey.getBytes());
@@ -57,7 +57,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
         for (String permission : permissions) {
             if (permission.equals("ROLE_ADMIN")) {
-                response.sendRedirect(request.getContextPath() + "/requests");
+                response.sendRedirect(request.getContextPath() + "/rooms/all/1");
                 return;
             } else if (permission.equals("ROLE_CLIENT")) {
                 response.sendRedirect(request.getContextPath() + "/index");

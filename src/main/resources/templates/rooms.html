@@ -35,9 +35,6 @@
             <th class="set-room-state-column"><p class="table-heading-text">
                 block/unblock
             </p></th>
-            <th class="edit-room-column"><p class="table-heading-text">
-                edit room
-            </p></th>
             <th class="delete-room-column"><p class="table-heading-text">
                 delete room
             </p></th>
@@ -51,55 +48,46 @@
             <td><p class="table-text" th:text="${room.number}"></p></td>
             <td id="room-capacity-data"><p class="table-text" th:text="${room.capacity}"></p></td>
             <td>
-                <p class="table-text" th:text="${room.roomClass}">
+                <p class="table-text" th:text="${room.type}">
                 </p>
             </td>
-            <td><p class="table-text">${room.roomPrice.price}</p></td>
+            <td><p class="table-text" th:text="${room.price}"></p></td>
             <td id="price-date-data">
-                <p class="table-text">
-                    <fmt:formatDate pattern="${DatePattern}" value="${room.roomPrice.validFrom}"/>
+                <p class="table-text" th:text="${room.validFrom.toString().substring(0,10)}">
                 </p>
             </td>
-            <c:choose>
-                <c:when test="${room.isBlocked}">
-                    <td><img src="static/images/accept.png" alt="accpect image" class="accept-image"></td>
-                    <td><a class="in-column-link"
-                           href="controller?command=setRoomState&roomId=${room.id}&state=0">
-                        <fmt:message
-                                key="unban"/>
-                    </a></td>
-                </c:when>
-                <c:otherwise>
-                    <td><img src="static/images/pending.png" alt="pending room" class="pending-image"></td>
-                    <td><a class="in-column-link"
-                           href="controller?command=setRoomState&roomId=${room.id}&state=1"
-                           onclick="return ConfirmDelete()">
-                        <fmt:message key="ban"/>
-                    </a></td>
-                </c:otherwise>
-            </c:choose>
-            <td><a class="in-column-link" href="controller?command=editRoomPage&roomId=${room.id}">
-                <fmt:message key="edit-room"/>
-            </a></td>
-            <td><a class="in-column-link" href="controller?command=deleteRoom&roomId=${room.id}"
+            <td th:switch="${room.isBlocked}">
+                <img th:case="${true}" th:src="@{/accept.png}" alt="accept image" class="accept-image">
+                <img th:case="${false}" th:src="@{/pending.png}" alt="pending room" class="pending-image">
+            </td>
+            <td th:switch="${room.isBlocked}">
+                <a th:case="${true}" class="in-column-link"
+                   th:href="@{/room/edit/unblock/{id}(id=${room.id})}" th:text="unblock">
+                </a>
+                <a th:case="${false}" class="in-column-link"
+                   th:href="@{/room/edit/block/{id}(id=${room.id})}" th:text="block">
+                </a>
+            </td>
+            <td>
+                <a class="in-column-link"
+                   th:href="@{/room/delete/{id}(id=${room.id})}" th:text="'delete room'"
                    onclick="return ConfirmDelete()">
-                <fmt:message key="delete-room"/>
-            </a></td>
+                </a>
+            </td>
         </tr>
-        </c:forEach>
         </tbody>
     </table>
-    <table class="page-navigation">
-        <tr>
-            <c:forEach begin="1" end="${numberOfPages}" var="i">
-                <td><a href="controller?command=roomsPage&page=${i}">${i}</a></td>
-            </c:forEach>
-        </tr>
-    </table>
-    <button id="create-room-btn" onclick="location.href='controller?command=createRoomPage'"
-            type="button">
-        <fmt:message key="create-room-btn"/>
-    </button>
+    <!--    <table class="page-navigation">-->
+    <!--        <tr>-->
+    <!--            <c:forEach begin="1" end="${numberOfPages}" var="i">-->
+    <!--                <td><a href="controller?command=roomsPage&page=${i}">${i}</a></td>-->
+    <!--            </c:forEach>-->
+    <!--        </tr>-->
+    <!--    </table>-->
+    <!--    <button id="create-room-btn" onclick="location.href='controller?command=createRoomPage'"-->
+    <!--            type="button">-->
+    <!--        <fmt:message key="create-room-btn"/>-->
+    <!--    </button>-->
 </div>
 </body>
 </html>

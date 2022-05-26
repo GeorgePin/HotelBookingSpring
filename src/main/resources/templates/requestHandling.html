@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Request handling</title>
+    <link rel="stylesheet" th:href="@{/basic-style.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/request-handling-style.css}" type="text/css"/>
+</head>
+<body>
+<div th:replace="adminHeader"></div>
+<div id="page-content">
+    <table id="request-table">
+        <thead>
+        <tr>
+            <th>
+                <p class="table-heading-text" th:text="'start date'">
+                </p>
+            </th>
+            <th>
+                <p class="table-heading-text" th:text="'end date'">
+                </p>
+            </th>
+            <th>
+                <p class="table-heading-text" th:text="'room capacity'">
+                </p>
+            </th>
+            <th>
+                <p class="table-heading-text" th:text="'room class'">
+                </p>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <p class="table-text" th:text="${request.startDate.toString().substring(0,10)}">
+                </p>
+            </td>
+            <td th:switch="${request.endDate==null ? true : false}">
+                <h1 class="dash" th:case="${true}">-</h1>
+                <p class="table-text" th:case="${false}"
+                   th:text="${request.endDate.toString().substring(0,10)}"></p>
+            </td>
+            <td>
+                <p class="table-text" th:text="${request.roomCapacity}">
+                </p></td>
+            <td>
+                <p class="table-text" th:text="${request.roomClass}">
+                </p>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <table id="rooms-table">
+        <thead>
+        <tr>
+            <th><p class="table-heading-text">#</p></th>
+            <th>
+                <p class="table-heading-text" th:text="'room capacity'">
+                </p>
+            </th>
+            <th>
+                <p class="table-heading-text" th:text="'room class'">
+                </p>
+            </th>
+            <th>
+                <p class="table-heading-text" th:text="number">
+                </p>
+            </th>
+            <th>
+                <p class="table-heading-text" th:text="'take it'">
+                </p>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="room,iter: ${roomsDto}">
+            <td><p class="table-text" th:text="${iter.count}"></p></td>
+            <td><p class="table-text" th:text="${room.capacity}"></p></td>
+            <td><p class="table-text" th:text="${room.type}"></p></td>
+            <td><p class="table-text" th:text="${room.number}"></p></td>
+            <td>
+                <a th:href="@{/request/handle/{reqId}/room/{roomNumber}(reqId=${request.id},roomNumber=${room.number})}"
+                   th:text="'take it'">
+                </a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

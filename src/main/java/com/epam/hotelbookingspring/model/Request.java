@@ -1,7 +1,9 @@
 package com.epam.hotelbookingspring.model;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -12,7 +14,8 @@ import java.util.Date;
 @Entity
 @Table(name = "reservation")
 @Data
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class Request implements Serializable {
 
     @Id
@@ -34,4 +37,6 @@ public class Request implements Serializable {
     private Long userId;
     @Column(name = "room_id")
     private Long roomId;
+
+
 }

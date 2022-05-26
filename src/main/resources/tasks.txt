@@ -1,1 +1,4 @@
  [@Transactional,@ConstructorWithNoArgs and requiredArgsConstructor,Refresh token, internationalization,tests,validation front/back ,JwtTokenFilter : logic on exparation]
+ edit room page
+ clients page
+ new room page

@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public enum Role {
     CLIENT(Set.of(Permission.REQUEST_CREATE, Permission.REQUESTS_READ)),
-    ADMIN(Set.of(Permission.REQUESTS_READ_ALL));
+    ADMIN(Set.of(Permission.REQUESTS_READ_ALL, Permission.ROOMS_READ, Permission.ROOM_EDIT, Permission.ROOM_DELETE, Permission.REQUEST_HANDLE));
 
     private final Set<Permission> permissions;
 
